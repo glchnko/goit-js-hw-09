@@ -1,103 +1,3 @@
-// import flatpickr from "flatpickr";
-// import "flatpickr/dist/flatpickr.min.css";
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
-
-
-// const inputData = document.querySelector('#datetime-picker');
-// const btnStart = document.querySelector('button[data-start]');
-// const timeVal = document.querySelector('.value');
-
-// let presentTime = null;
-
-
-
-// const options = {
-//     enableTime: true,
-//     time_24hr: true,
-//     defaultDate: new Date(),
-//     minuteIncrement: 1,
-//     onClose(selectedDates) {
-//         if(options.defaultDate.getTime() > selectedDates[0].getTime()){
-//             btnStart.disabled = true; 
-//             Notify.failure("Please choose a date in the future");
-//             return;
-//         }
-
-//         if(options.defaultDate.getTime() < selectedDates[0].getTime()){
-//             btnStart.disabled = false;
-//             presentTime = selectedDates[0].getTime();
-//             console.log(selectedDates[0]);
-//             console.log(options.defaultDate);
-//         }
-//     },
-//   };
-
-
-
-// btnStart.addEventListener('click', onStart)
-// const flatpickr = flatpickr("#datetime-picker", options)
-
-// function onStart() {
-//      timer.start()
-        
-// }
-
-// const timer = {
-//     intervallId: null,
-//     isActive: false, 
-//     start(){
-//         if(this.isActive) return;
-//         this.isActive = true;
-
-//         this.intervallId = setInterval(() => {
-//             const currentTime = Date.now();
-//             const deltaTime = presentTime - currentTime;
-            
-//             if(deltaTime < 1000)clearInterval(this.intervallId);
-//             console.log(deltaTime)
-//             const convertTime = convertMs(deltaTime);
-//             changeHtmlValues(convertTime);
-//         }, 1000);
-//     }
-// } 
-
-//  function pad(value){
-//     return String(value).padStart(2 , '0');
-//  }
-
-//   function convertMs(ms) {
-//     // Number of milliseconds per unit of time
-//     const second = 1000;
-//     const minute = second * 60;
-//     const hour = minute * 60;
-//     const day = hour * 24;
-  
-//     // Remaining days
-//     const days = Math.floor(ms / day);
-//     // Remaining hours
-//     const hours = Math.floor((ms % day) / hour);
-//     // Remaining minutes
-//     const minutes = Math.floor(((ms % day) % hour) / minute);
-//     // Remaining seconds
-//     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-//     return { days, hours, minutes, seconds };
-//   }
-
-//   function changeHtmlValues({ days, hours, minutes, seconds }) {
-//     timeVal.forEach(value => {
-//       if (value.hasAttribute('data-days')) value.textContent = days;
-//       if (value.hasAttribute('data-hours')) value.textContent = hours;
-//       if (value.hasAttribute('data-minutes')) value.textContent = minutes;
-//       if (value.hasAttribute('data-seconds')) value.textContent = seconds;
-//     });
-//   }
-  
-  // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  // console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  // console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
   import "flatpickr/dist/flatpickr.min.css";
   import flatpickr from "flatpickr";
   import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -183,7 +83,9 @@
 
 
 
-  // flatpickr це легкий і потужний засіб вибору дати й часу але він не залежить від жодних бібліотек. npm i flatpickr --save.
+
+
+// flatpickr це легкий і потужний засіб вибору дати й часу але він не залежить від жодних бібліотек. npm i flatpickr --save.
 // flatpickr-Бібліотека очікує, що її ініціалізують на елементі input[type = "text"], тому ми додали до HTML документу поле input#datetime - picker.
 //const flatpick = flatpickr('#datetime-picker', options);  
 // Другим аргументом функції flatpickr(selector, options) можна передати необов'язковий об'єкт параметрів
