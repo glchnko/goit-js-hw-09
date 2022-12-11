@@ -1,92 +1,178 @@
-import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css";
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import flatpickr from "flatpickr";
+// import "flatpickr/dist/flatpickr.min.css";
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 
-const inputData = document.querySelector('#datetime-picker');
-const btnStart = document.querySelector('button[data-start]');
-const timeVal = document.querySelector('.value');
+// const inputData = document.querySelector('#datetime-picker');
+// const btnStart = document.querySelector('button[data-start]');
+// const timeVal = document.querySelector('.value');
 
-let presentTime = null;
+// let presentTime = null;
 
 
 
-const options = {
+// const options = {
+//     enableTime: true,
+//     time_24hr: true,
+//     defaultDate: new Date(),
+//     minuteIncrement: 1,
+//     onClose(selectedDates) {
+//         if(options.defaultDate.getTime() > selectedDates[0].getTime()){
+//             btnStart.disabled = true; 
+//             Notify.failure("Please choose a date in the future");
+//             return;
+//         }
+
+//         if(options.defaultDate.getTime() < selectedDates[0].getTime()){
+//             btnStart.disabled = false;
+//             presentTime = selectedDates[0].getTime();
+//             console.log(selectedDates[0]);
+//             console.log(options.defaultDate);
+//         }
+//     },
+//   };
+
+
+
+// btnStart.addEventListener('click', onStart)
+// const flatpickr = flatpickr("#datetime-picker", options)
+
+// function onStart() {
+//      timer.start()
+        
+// }
+
+// const timer = {
+//     intervallId: null,
+//     isActive: false, 
+//     start(){
+//         if(this.isActive) return;
+//         this.isActive = true;
+
+//         this.intervallId = setInterval(() => {
+//             const currentTime = Date.now();
+//             const deltaTime = presentTime - currentTime;
+            
+//             if(deltaTime < 1000)clearInterval(this.intervallId);
+//             console.log(deltaTime)
+//             const convertTime = convertMs(deltaTime);
+//             changeHtmlValues(convertTime);
+//         }, 1000);
+//     }
+// } 
+
+//  function pad(value){
+//     return String(value).padStart(2 , '0');
+//  }
+
+//   function convertMs(ms) {
+//     // Number of milliseconds per unit of time
+//     const second = 1000;
+//     const minute = second * 60;
+//     const hour = minute * 60;
+//     const day = hour * 24;
+  
+//     // Remaining days
+//     const days = Math.floor(ms / day);
+//     // Remaining hours
+//     const hours = Math.floor((ms % day) / hour);
+//     // Remaining minutes
+//     const minutes = Math.floor(((ms % day) % hour) / minute);
+//     // Remaining seconds
+//     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  
+//     return { days, hours, minutes, seconds };
+//   }
+
+//   function changeHtmlValues({ days, hours, minutes, seconds }) {
+//     timeVal.forEach(value => {
+//       if (value.hasAttribute('data-days')) value.textContent = days;
+//       if (value.hasAttribute('data-hours')) value.textContent = hours;
+//       if (value.hasAttribute('data-minutes')) value.textContent = minutes;
+//       if (value.hasAttribute('data-seconds')) value.textContent = seconds;
+//     });
+//   }
+  
+  // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+  // console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+  // console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+
+  import "flatpickr/dist/flatpickr.min.css";
+  import flatpickr from "flatpickr";
+  import { Notify } from 'notiflix/build/notiflix-notify-aio';
+  
+  const dataInput = document.querySelector('#datetime-picker')
+  const startBtn = document.querySelector('button[data-start]')
+  const timeValues = document.querySelectorAll('.value')
+  
+  const options = {
     enableTime: true,
-    time_24hr: true,
+   time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        if(options.defaultDate.getTime() > selectedDates[0].getTime()){
-            btnStart.disabled = true; 
-            Notify.failure("Please choose a date in the future");
-            return;
-        }
-
-        if(options.defaultDate.getTime() < selectedDates[0].getTime()){
-            btnStart.disabled = false;
-            presentTime = selectedDates[0].getTime();
-            console.log(selectedDates[0]);
-            console.log(options.defaultDate);
-        }
-    },
+    if (options.defaultDate.getTime() > selectedDates[0].getTime() ) {
+    Notify.failure("Please choose a date in the future");
+    startBtn.setAttribute('disabled', 'disabled');
+      return;
+      }
+    
+   if (options.defaultDate.getTime() < selectedDates[0].getTime() ) { 
+     startBtn.removeAttribute('disabled')
+     presentTime = selectedDates[0].getTime();
+     console.log(selectedDates[0])
+     console.log(options.defaultDate)
+    }},
   };
-
-
-
-btnStart.addEventListener('click', onStart)
-const flatpickr = flatpickr("#datetime-picker", options)
-
-function onStart() {
-     timer.start()
-        
-}
-
-const timer = {
-    intervallId: null,
-    isActive: false, 
-    start(){
-        if(this.isActive) return;
+  
+  const flatpick = flatpickr('#datetime-picker', options); 
+  
+  startBtn.addEventListener("click", onClickStart)
+    function onClickStart() {
+    timer.start()
+  }
+  let presentTime = null;
+   
+  const timer = {
+    intervalId: null,
+    isActive:false,
+      start() {
+        if (this.isActive) return;
         this.isActive = true;
-
-        this.intervallId = setInterval(() => {
-            const currentTime = Date.now();
-            const deltaTime = presentTime - currentTime;
-            
-            if(deltaTime < 1000)clearInterval(this.intervallId);
-            console.log(deltaTime)
-            const convertTime = convertMs(deltaTime);
-            changeHtmlValues(convertTime);
-        }, 1000);
-    }
-} 
-
- function pad(value){
-    return String(value).padStart(2 , '0');
- }
-
-  function convertMs(ms) {
-    // Number of milliseconds per unit of time
+        
+        this.intervalId = setInterval(() => {
+       const currentTime = Date.now()
+       const deltaTime = presentTime - currentTime;
+       if(deltaTime<1000)clearInterval(this.intervalId);
+        console.log(deltaTime)
+          const convertTime = convertMs(deltaTime);
+          changeHtmlValues(convertTime)
+           },1000)
+    },
+   }
+  
+    
+  function pad(value) {
+    return String(value).padStart(2, '0');
+  }
+  
+    function convertMs(ms) {
+   
     const second = 1000;
     const minute = second * 60;
     const hour = minute * 60;
     const day = hour * 24;
   
-    // Remaining days
-    const days = Math.floor(ms / day);
-    // Remaining hours
-    const hours = Math.floor((ms % day) / hour);
-    // Remaining minutes
-    const minutes = Math.floor(((ms % day) % hour) / minute);
-    // Remaining seconds
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
+    const days = pad(Math.floor(ms / day));
+    const hours = pad(Math.floor((ms % day) / hour));
+    const minutes = pad(Math.floor(((ms % day) % hour) / minute));
+    const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
     return { days, hours, minutes, seconds };
   }
-
+  
   function changeHtmlValues({ days, hours, minutes, seconds }) {
-    timeVal.forEach(value => {
+    timeValues.forEach(value => {
       if (value.hasAttribute('data-days')) value.textContent = days;
       if (value.hasAttribute('data-hours')) value.textContent = hours;
       if (value.hasAttribute('data-minutes')) value.textContent = minutes;
@@ -94,11 +180,6 @@ const timer = {
     });
   }
   
-  console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
-
 
 
 
